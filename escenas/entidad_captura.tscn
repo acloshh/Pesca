@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://durct64fvde5b"]
+
+[ext_resource type="Script" uid="uid://qplopkxd0hg1" path="res://scripts/entidad_captura.gd" id="1_b1ffi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7mpel"]
+size = Vector2(20, 12)
+
+[node name="EntidadCaptura" type="Area2D" unique_id=1346901712]
+script = ExtResource("1_b1ffi")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=871634203]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1201092096]
+shape = SubResource("RectangleShape2D_7mpel")
