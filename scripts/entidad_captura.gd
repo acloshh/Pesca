@@ -30,7 +30,8 @@ func configurar(
 	p_peso: float,
 	p_velocidad: float,
 	p_es_basura: bool,
-	p_direccion: int
+	p_direccion: int,
+	p_escala: float = 2.0
 ) -> void:
 	nombre = p_nombre
 	valor_dinero = p_valor
@@ -44,12 +45,13 @@ func configurar(
 		sprite.hframes = maxi(1, p_hframes)
 		sprite.frame = 0
 		sprite.flip_h = direccion < 0
+		sprite.scale = Vector2(p_escala, p_escala)
 
 		if colision and colision.shape is RectangleShape2D and p_textura:
-			var ancho_frame := float(p_textura.get_width()) / float(maxi(1, p_hframes))
-			var alto_frame := float(p_textura.get_height())
+			var ancho_frame := (float(p_textura.get_width()) / float(maxi(1, p_hframes))) * p_escala
+			var alto_frame := float(p_textura.get_height()) * p_escala
 			var forma := colision.shape.duplicate() as RectangleShape2D
-			forma.size = Vector2(maxf(8.0, ancho_frame), maxf(6.0, alto_frame))
+			forma.size = Vector2(maxf(18.0, ancho_frame), maxf(12.0, alto_frame))
 			colision.shape = forma
 
 
@@ -65,7 +67,7 @@ func _physics_process(delta: float) -> void:
 			_tiempo_animacion = 0.0
 			sprite.frame = (sprite.frame + 1) % sprite.hframes
 
-	if global_position.x < -80.0 or global_position.x > 720.0:
+	if global_position.x < -96.0 or global_position.x > 736.0:
 		queue_free()
 
 

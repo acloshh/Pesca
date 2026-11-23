@@ -17,8 +17,7 @@ const LIMITE_IZQ_X: float = 48.0
 const LIMITE_DER_X: float = 592.0
 const VELOCIDAD_MOVIMIENTO: float = 135.0
 const VELOCIDAD_CARGA: float = 1.35
-const FUERZA_TAPPING_BASE: float = 18.0
-const VELOCIDAD_RETORNO_VACIO: float = 260.0
+const VELOCIDAD_AUTO_REEL: float = 220.0
 
 const TEX_IDLE := preload("res://assets/1 Fisherman/Fisherman_idle.png")
 const TEX_ROW := preload("res://assets/1 Fisherman/Fisherman_row.png")
@@ -28,6 +27,10 @@ const TEX_HOOK := preload("res://assets/1 Fisherman/Fisherman_hook.png")
 var estado: EstadoPesca = EstadoPesca.MOVIENDO
 var direccion_mirada: int = 1
 var fuerza_carga: float = 0.0
+var carrete_automatico_activo: bool = false
+
+var _fuerza_tapping: float = 20.0
+var _velocidad_retorno: float = 260.0
 var _direccion_carga: float = 1.0
 var _eje_tactil_x: float = 0.0
 var _partida_activa: bool = true
@@ -44,6 +47,10 @@ const INTERVALO_ANIM: float = 0.14
 
 
 func _ready() -> void:
+	anzuelo.velocidad_hundimiento = DatosJuego.obtener_velocidad_hundimiento()
+	_fuerza_tapping = DatosJuego.obtener_fuerza_tapping()
+	_velocidad_retorno = DatosJuego.obtener_velocidad_retorno()
+
 	anzuelo.toco_agua.connect(_al_tocar_agua)
 	anzuelo.toco_fondo.connect(_al_tocar_fondo)
 	anzuelo.captura_enganchada.connect(_al_enganchar_captura)
@@ -74,7 +81,7 @@ func _physics_process(delta: float) -> void:
 			anzuelo.actualizar_vuelo_y_hundimiento(delta)
 			_actualizar_hilo()
 		EstadoPesca.RECOGIENDO:
-			_procesar_recogida()
+			_procesar_recogida(delta)
 			_actualizar_hilo()
 		EstadoPesca.RETORNANDO:
 			_procesar_retorno(delta)
@@ -131,15 +138,21 @@ func _lanzar_anzuelo() -> void:
 	_cambiar_estado(EstadoPesca.LANZANDO_AIRE)
 
 
-func _procesar_recogida() -> void:
+func _procesar_recogida(delta: float) -> void:
+	if carrete_automatico_activo:
+		var completado_auto := anzuelo.actualizar_recogida_automatica(punta_cana.global_position, VELOCIDAD_AUTO_REEL, delta)
+		if completado_auto:
+			_finalizar_captura()
+		return
+
 	if Input.is_action_just_pressed("accion_pesca"):
-		var completado := anzuelo.impulsar_recogida(punta_cana.global_position, FUERZA_TAPPING_BASE)
+		var completado := anzuelo.impulsar_recogida(punta_cana.global_position, _fuerza_tapping)
 		if completado:
 			_finalizar_captura()
 
 
 func _procesar_retorno(delta: float) -> void:
-	if anzuelo.actualizar_retorno_vacio(punta_cana.global_position, VELOCIDAD_RETORNO_VACIO, delta):
+	if anzuelo.actualizar_retorno_vacio(punta_cana.global_position, _velocidad_retorno, delta):
 		anzuelo.reiniciar(punta_cana.global_position)
 		hilo_pesca.visible = false
 		_cambiar_estado(EstadoPesca.MOVIENDO)

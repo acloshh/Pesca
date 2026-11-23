@@ -11,7 +11,7 @@ const LIMITE_DER_X: float = 616.0
 
 @export var superficie_agua_y: float = 120.0
 @export var fondo_rio_y: float = 344.0
-@export var velocidad_hundimiento: float = 95.0
+@export var velocidad_hundimiento: float = 100.0
 
 var velocidad: Vector2 = Vector2.ZERO
 var en_aire: bool = false
@@ -79,6 +79,16 @@ func impulsar_recogida(p_origen: Vector2, p_avance_base: float) -> bool:
 	var peso_efectivo := maxf(captura_actual.peso, 0.35)
 	var paso := p_avance_base / peso_efectivo
 	global_position = global_position.move_toward(p_origen, paso)
+	captura_actual.global_position = global_position + Vector2(0.0, 6.0)
+
+	return global_position.distance_to(p_origen) <= 8.0 or global_position.y <= superficie_agua_y - 4.0
+
+
+func actualizar_recogida_automatica(p_origen: Vector2, p_velocidad: float, delta: float) -> bool:
+	if captura_actual == null:
+		return true
+
+	global_position = global_position.move_toward(p_origen, p_velocidad * delta)
 	captura_actual.global_position = global_position + Vector2(0.0, 6.0)
 
 	return global_position.distance_to(p_origen) <= 8.0 or global_position.y <= superficie_agua_y - 4.0

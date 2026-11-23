@@ -11,6 +11,8 @@ radius = 6.0
 
 [node name="JuegoPrincipal" type="Node2D" unique_id=1865393688]
 script = ExtResource("1_oljg8")
+duracion_nivel = null
+meta_dinero = null
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=440907728]
 position = Vector2(320, 180)
@@ -58,11 +60,13 @@ position = Vector2(320, 108)
 script = ExtResource("2_032dk")
 
 [node name="SpriteBote" type="Sprite2D" parent="Pescador" unique_id=1933201124]
+z_index = 2
 position = Vector2(0, 6)
 texture = ExtResource("3_6gnkh")
 
 [node name="SpritePescador" type="Sprite2D" parent="Pescador" unique_id=611354414]
-position = Vector2(0, -14)
+z_index = 1
+position = Vector2(0, -10)
 texture = ExtResource("4_mggo3")
 hframes = 4
 
@@ -70,6 +74,7 @@ hframes = 4
 position = Vector2(22, -16)
 
 [node name="HiloPesca" type="Line2D" parent="Pescador" unique_id=270719880]
+z_index = 3
 width = 1.0
 default_color = Color(0.9607843, 0.9607843, 0.8627451, 1)
 
@@ -81,6 +86,7 @@ offset_bottom = -19.0
 show_percentage = false
 
 [node name="Anzuelo" type="Area2D" parent="Pescador" unique_id=120337047]
+z_index = 3
 script = ExtResource("5_5h84c")
 
 [node name="VisualAnzuelo" type="Polygon2D" parent="Pescador/Anzuelo" unique_id=1583778014]
@@ -102,9 +108,13 @@ offset_right = -12.0
 [node name="BarraSuperior" type="HBoxContainer" parent="HUD/MargenHUD" unique_id=1373674519]
 layout_mode = 2
 
+[node name="LabelNivel" type="Label" parent="HUD/MargenHUD/BarraSuperior" unique_id=1552552930]
+layout_mode = 2
+
 [node name="LabelDinero" type="Label" parent="HUD/MargenHUD/BarraSuperior" unique_id=1366247239]
 layout_mode = 2
 size_flags_horizontal = 3
+horizontal_alignment = 1
 
 [node name="LabelTiempo" type="Label" parent="HUD/MargenHUD/BarraSuperior" unique_id=1014841987]
 layout_mode = 2
@@ -115,10 +125,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -90.0
-offset_top = -40.0
-offset_right = 90.0
-offset_bottom = 40.0
+offset_left = -125.0
+offset_top = -65.0
+offset_right = 125.0
+offset_bottom = 65.0
 
 [node name="VBox" type="VBoxContainer" parent="HUD/PanelResultado" unique_id=855945161]
 layout_mode = 2
@@ -127,6 +137,35 @@ layout_mode = 2
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="BotonReintentar" type="Button" parent="HUD/PanelResultado/VBox" unique_id=816416025]
+[node name="BotonPrincipal" type="Button" parent="HUD/PanelResultado/VBox" unique_id=816416025]
 layout_mode = 2
 text = "Reintentar"
+
+[node name="BotonSecundario" type="Button" parent="HUD/PanelResultado/VBox" unique_id=691536795]
+layout_mode = 2
+
+[node name="MargenInferior" type="MarginContainer" parent="HUD" unique_id=583726616]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -34.0
+offset_right = -12.0
+offset_bottom = -6.0
+
+[node name="BarraPotenciadores" type="HBoxContainer" parent="HUD/MargenInferior" unique_id=1624777034]
+layout_mode = 2
+alignment = 1
+
+[node name="BotonCarreteAuto" type="Button" parent="HUD/MargenInferior/BarraPotenciadores" unique_id=367692476]
+layout_mode = 2
+focus_mode = 0
+
+[node name="BotonTiempoExtra" type="Button" parent="HUD/MargenInferior/BarraPotenciadores" unique_id=1706227316]
+layout_mode = 2
+focus_mode = 0
+
+[node name="BotonCeboDorado" type="Button" parent="HUD/MargenInferior/BarraPotenciadores" unique_id=997875905]
+layout_mode = 2
+focus_mode = 0
