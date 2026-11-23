@@ -19,13 +19,14 @@ color = Color(0.08627451, 0.16470589, 0.23921569, 1)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 40.0
-offset_top = 20.0
-offset_right = -40.0
-offset_bottom = -20.0
+offset_left = 20.0
+offset_top = 16.0
+offset_right = -20.0
+offset_bottom = -16.0
 
 [node name="VBox" type="VBoxContainer" parent="Margen" unique_id=2056413684]
 layout_mode = 2
+alignment = 1
 
 [node name="LabelTitulo" type="Label" parent="Margen/VBox" unique_id=1937581691]
 layout_mode = 2

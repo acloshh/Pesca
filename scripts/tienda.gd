@@ -29,11 +29,11 @@ func _actualizar_ui() -> void:
 	label_dinero.text = "Dinero disponible: $%d" % DatosJuego.dinero_total
 
 	if DatosJuego.nivel_fuerza >= DatosJuego.MAX_NIVEL_MEJORA:
-		boton_fuerza.text = "Fuerza de Caña (Nv. MAX)"
+		boton_fuerza.text = "Fuerza Caña (MAX)"
 		boton_fuerza.disabled = true
 	else:
 		var costo_f := DatosJuego.obtener_costo_fuerza()
-		boton_fuerza.text = "Fuerza de Caña (Nv. %d/%d) - $%d" % [
+		boton_fuerza.text = "Fuerza Caña (Nv. %d/%d) - $%d" % [
 			DatosJuego.nivel_fuerza,
 			DatosJuego.MAX_NIVEL_MEJORA,
 			costo_f,
@@ -41,30 +41,30 @@ func _actualizar_ui() -> void:
 		boton_fuerza.disabled = DatosJuego.dinero_total < costo_f
 
 	if DatosJuego.nivel_carrete >= DatosJuego.MAX_NIVEL_MEJORA:
-		boton_carrete.text = "Velocidad de Carrete (Nv. MAX)"
+		boton_carrete.text = "Carrete (MAX)"
 		boton_carrete.disabled = true
 	else:
 		var costo_c := DatosJuego.obtener_costo_carrete()
-		boton_carrete.text = "Velocidad de Carrete (Nv. %d/%d) - $%d" % [
+		boton_carrete.text = "Carrete (Nv. %d/%d) - $%d" % [
 			DatosJuego.nivel_carrete,
 			DatosJuego.MAX_NIVEL_MEJORA,
 			costo_c,
 		]
 		boton_carrete.disabled = DatosJuego.dinero_total < costo_c
 
-	boton_carrete_auto.text = "Carrete Automático (Stock: %d) - $%d" % [
+	boton_carrete_auto.text = "Auto (%d) - $%d" % [
 		DatosJuego.cant_carrete_auto,
 		DatosJuego.PRECIO_CARRETE_AUTO,
 	]
 	boton_carrete_auto.disabled = DatosJuego.dinero_total < DatosJuego.PRECIO_CARRETE_AUTO
 
-	boton_tiempo_extra.text = "Tiempo Extra +10s (Stock: %d) - $%d" % [
+	boton_tiempo_extra.text = "+10s (%d) - $%d" % [
 		DatosJuego.cant_tiempo_extra,
 		DatosJuego.PRECIO_TIEMPO_EXTRA,
 	]
 	boton_tiempo_extra.disabled = DatosJuego.dinero_total < DatosJuego.PRECIO_TIEMPO_EXTRA
 
-	boton_cebo_dorado.text = "Cebo Dorado x2$ (Stock: %d) - $%d" % [
+	boton_cebo_dorado.text = "Cebo x2$ (%d) - $%d" % [
 		DatosJuego.cant_cebo_dorado,
 		DatosJuego.PRECIO_CEBO_DORADO,
 	]

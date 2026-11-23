@@ -33,6 +33,10 @@ window/stretch/aspect="expand"
 
 enabled=PackedStringArray("res://addons/godot_ai/plugin.cfg")
 
+[gui]
+
+theme/custom="res://recursos/tema_ui.tres"
+
 [input]
 
 mover_izquierda={

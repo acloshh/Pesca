@@ -11,8 +11,6 @@ radius = 6.0
 
 [node name="JuegoPrincipal" type="Node2D" unique_id=1865393688]
 script = ExtResource("1_oljg8")
-duracion_nivel = null
-meta_dinero = null
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=440907728]
 position = Vector2(320, 180)
@@ -71,7 +69,7 @@ texture = ExtResource("4_mggo3")
 hframes = 4
 
 [node name="PuntaCana" type="Marker2D" parent="Pescador" unique_id=780086996]
-position = Vector2(22, -16)
+position = Vector2(19, -10)
 
 [node name="HiloPesca" type="Line2D" parent="Pescador" unique_id=270719880]
 z_index = 3
@@ -150,9 +148,10 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 12.0
-offset_top = -34.0
+offset_top = -30.0
 offset_right = -12.0
 offset_bottom = -6.0
+grow_vertical = 0
 
 [node name="BarraPotenciadores" type="HBoxContainer" parent="HUD/MargenInferior" unique_id=1624777034]
 layout_mode = 2
